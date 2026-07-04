@@ -1,0 +1,8 @@
+# Ignore Virtual Machines
+2_Virtual_Machines/
+
+# Ignore ISO Images
+1_ISOs/
+
+# Ignore OVA Backups
+3_OVA_Backup/
