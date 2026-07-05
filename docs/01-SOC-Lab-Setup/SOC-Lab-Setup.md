@@ -2,110 +2,183 @@
 
 ## Overview
 
-The first phase of the BlueSentinel SOC Lab focused on designing and deploying a secure, isolated virtual environment capable of supporting enterprise-style Security Operations Center (SOC) activities.
+The first phase of the BlueSentinel SOC Lab focused on designing and deploying a secure, isolated virtual environment capable of supporting enterprise-style Security Operations Center (SOC) operations.
 
-The objective was to establish a stable infrastructure consisting of an attacker machine, a monitored endpoint, and a centralized Security Information and Event Management (SIEM) platform. This environment serves as the foundation for all subsequent monitoring, detection, investigation, and incident response activities.
+The objective was to establish a stable infrastructure consisting of an attacker machine, a monitored Windows endpoint, and a centralized Wazuh SIEM server. This environment serves as the foundation for monitoring, threat detection, incident investigation, and response activities performed throughout the project.
 
 ---
 
 # Objectives
 
 - Build an isolated enterprise SOC laboratory.
-- Deploy multiple virtual machines for attack simulation and security monitoring.
-- Configure a dedicated internal virtual network.
-- Assign static IP addresses for reliable communication.
-- Verify connectivity between all systems.
-- Prepare the infrastructure for centralized monitoring.
+- Deploy multiple virtual machines for attack simulation and monitoring.
+- Configure an internal VMware network.
+- Assign static IP addresses to every system.
+- Verify connectivity between all machines.
+- Prepare the infrastructure for centralized log collection and analysis.
 
 ---
 
 # Lab Environment
 
-| Component | Technology |
-|----------|------------|
-| Virtualization Platform | VMware Workstation Pro |
-| Attacker Machine | Kali Linux |
-| Monitored Endpoint | Windows 10 |
-| SIEM Platform | Ubuntu Server running Wazuh |
+| Machine | Operating System | Role | IP Address |
+|----------|------------------|------|------------|
+| Kali Linux | Kali Linux | Attacker | 192.168.50.20 |
+| Windows 10 | Windows 10 Pro | Victim Endpoint | 192.168.50.30 |
+| Wazuh Server | Ubuntu Server | SIEM & Log Management | 192.168.50.10 |
+
+**Virtualization Platform:** VMware Workstation Pro
+
+**Virtual Network:** VMnet2 (Internal Network)
 
 ---
 
 # Infrastructure Deployment
 
-The SOC environment was deployed using three dedicated virtual machines connected through VMware's VMnet2 internal virtual network.
+Three dedicated virtual machines were deployed using VMware Workstation Pro and connected through an isolated VMnet2 internal network.
 
-The deployment included:
+The deployed infrastructure consists of:
 
-- Windows 10 endpoint for telemetry generation.
-- Kali Linux workstation for attack simulation.
-- Ubuntu Server hosting the Wazuh SIEM platform.
+- Kali Linux attacker machine
+- Windows 10 monitored endpoint
+- Ubuntu Server running Wazuh SIEM
 
-Each virtual machine was configured with a static IP address to ensure predictable communication and simplify monitoring throughout the project.
+Each virtual machine was configured with a static IP address to provide reliable communication and simplify monitoring throughout the project.
+
+## Infrastructure Screenshot
+
+The following screenshot shows the deployed virtual machines used within the BlueSentinel SOC Lab.
+
+![SOC Lab Architecture](../../screenshots/01-SOC-Lab-Setup/01-SOC-Lab-Architecture.png)
 
 ---
 
 # Network Configuration
 
-The environment uses an isolated internal network to prevent interference with external systems while allowing unrestricted communication between the virtual machines.
+The BlueSentinel SOC Lab operates inside VMware's VMnet2 isolated network.
 
-Network Details:
+This configuration prevents communication with external systems while allowing unrestricted communication between all virtual machines for realistic attack simulation and monitoring.
+
+Network Details
 
 - Virtual Network: VMnet2
 - Network Type: Internal
-- Addressing: Static IPv4
+- IP Addressing: Static IPv4
+
+## VMware Network Configuration
+
+The following screenshot shows the VMware virtual network configuration used throughout the lab.
+
+![VM Network Configuration](../../screenshots/01-SOC-Lab-Setup/02-VM-Network-Configuration.png)
+
+---
+
+# Static IP Configuration
+
+Static IP addressing was assigned to all virtual machines to ensure predictable communication between systems and simplify investigation during later SOC activities.
+
+Assigned IP Addresses
+
+| Machine | IP Address |
+|----------|------------|
+| Wazuh Server | 192.168.50.10 |
+| Kali Linux | 192.168.50.20 |
+| Windows 10 | 192.168.50.30 |
+
+## Static IP Assignment
+
+The following screenshot shows the static IP configuration used within the environment.
+
+![Static IP Configuration](../../screenshots/01-SOC-Lab-Setup/03-Static-IP-Configuration.png)
+
+---
+
+# Network Architecture
+
+The BlueSentinel SOC Lab follows a simple three-tier architecture.
+
+```
+        VMnet2 Internal Network
+
+        +------------------------------+
+
+        Kali Linux (Attacker)
+            192.168.50.20
+
+                  │
+
+        Windows 10 (Victim)
+            192.168.50.30
+
+                  │
+
+     Ubuntu Server + Wazuh SIEM
+            192.168.50.10
+
+        +------------------------------+
+```
+
+The isolated architecture enables realistic cyber attack simulations while preventing traffic from reaching external networks.
 
 ---
 
 # Connectivity Validation
 
-After configuring the environment, connectivity tests were performed between all virtual machines.
+After completing the deployment, connectivity tests were performed between all systems.
 
 Validation included:
 
-- ICMP communication between systems.
-- Verification of static IP assignments.
-- Successful communication across the internal virtual network.
+- ICMP Ping between all virtual machines
+- Static IP verification
+- Internal network communication testing
+- End-to-end connectivity validation
 
-These tests confirmed that the infrastructure was ready for centralized monitoring.
+Successful testing confirmed that the environment was fully operational and ready for centralized monitoring.
 
----
+## Connectivity Testing
 
-# Deliverables
+The following screenshot demonstrates successful communication between the virtual machines.
 
-The following deliverables were successfully completed during this phase:
-
-- Enterprise SOC virtual environment.
-- Three fully operational virtual machines.
-- Internal virtual network.
-- Static IP address allocation.
-- Verified inter-machine connectivity.
-- Foundation for centralized monitoring.
-
----
-
-# Challenges Encountered
-
-Several configuration challenges were addressed during the deployment process, including:
-
-- Virtual network configuration.
-- Static IP assignment.
-- Inter-VM connectivity validation.
-- Initial virtualization setup.
-
-Resolving these issues provided a stable foundation for the remaining phases of the project.
+![Connectivity Validation](../../screenshots/01-SOC-Lab-Setup/04-Connectivity-Validation.png)
 
 ---
 
 # Outcome
 
-At the end of Phase 1, the BlueSentinel SOC Lab infrastructure was fully operational and ready for monitoring configuration. The isolated environment successfully replicated the core components of an enterprise SOC architecture and established the foundation for endpoint monitoring, attack simulation, and security investigations.
+Phase 1 successfully established a fully functional Security Operations Center laboratory.
+
+The environment now provides a stable platform for:
+
+- Endpoint monitoring
+- Security event collection
+- Attack simulation
+- Threat detection
+- Incident investigation
+- Detection engineering
+
+This infrastructure serves as the foundation for every remaining phase of the BlueSentinel SOC Lab.
+
+---
+
+# Phase Completion Status
+
+| Task | Status |
+|------|--------|
+| VMware Workstation Installed | ✅ Completed |
+| Kali Linux VM Created | ✅ Completed |
+| Windows 10 VM Created | ✅ Completed |
+| Ubuntu Server Installed | ✅ Completed |
+| Wazuh Server Configured | ✅ Completed |
+| VMnet2 Internal Network Configured | ✅ Completed |
+| Static IP Addresses Assigned | ✅ Completed |
+| Connectivity Validation Completed | ✅ Completed |
 
 ---
 
 # Key Insights
 
-- A properly designed lab architecture is essential before implementing security monitoring.
-- Static IP addressing improves operational consistency and simplifies incident investigation.
-- Network isolation enables realistic attack simulation while protecting the host environment.
-- Building a reliable infrastructure significantly reduces operational issues in later project phases.# SOC Lab Setup
-
+- A well-designed lab architecture is essential before implementing security monitoring.
+- Static IP addressing improves consistency during investigations.
+- Network isolation enables safe attack simulation.
+- Proper infrastructure planning reduces troubleshooting during later phases.
+- Building the SOC lab first establishes a strong foundation for monitoring, detection, and incident response.
