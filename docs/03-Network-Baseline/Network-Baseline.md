@@ -4,9 +4,9 @@
 
 The third phase of the BlueSentinel SOC Lab focused on establishing a network baseline by observing and analyzing normal system behavior before introducing any attack scenarios.
 
-A baseline represents the expected state of network communications, endpoint activity, and system behavior under normal operating conditions. Establishing this baseline is essential for identifying anomalies, detecting malicious activity, and supporting effective incident investigations.
+A network baseline represents the expected state of communications, endpoint activity, and protocol behavior under normal operating conditions. Establishing this baseline is essential for identifying anomalies, detecting malicious activity, and supporting effective incident investigations.
 
-Network traffic was captured using Wireshark while performing routine user activities such as logging into the Windows endpoint, browsing the web, transferring files, and generating ICMP traffic.
+Network traffic was captured using **Wireshark** on the Windows endpoint while performing routine user activities such as ICMP connectivity testing, web browsing, and normal Windows background operations.
 
 ---
 
@@ -14,10 +14,9 @@ Network traffic was captured using Wireshark while performing routine user activ
 
 - Capture normal network traffic.
 - Identify commonly used protocols.
-- Observe typical communication patterns.
-- Analyze active endpoints.
-- Examine network conversations.
-- Establish a trusted baseline for future attack comparisons.
+- Observe communication patterns.
+- Analyze endpoint interactions.
+- Establish a trusted baseline for future attack comparison.
 
 ---
 
@@ -26,11 +25,10 @@ Network traffic was captured using Wireshark while performing routine user activ
 The following activities were performed to generate baseline traffic:
 
 - User logon
-- ICMP Ping
-- Web browsing
-- File operations
-- Windows background processes
-- DNS and multicast name resolution
+- ICMP ping
+- Web browsing (HTTPS)
+- Windows background services
+- Multicast DNS (mDNS)
 - Wazuh Agent communication
 
 These activities represent expected behavior within the SOC environment.
@@ -39,56 +37,52 @@ These activities represent expected behavior within the SOC environment.
 
 # Traffic Capture
 
-Traffic was captured using Wireshark from the Windows endpoint during normal system operation.
+Traffic was captured using **Wireshark** from the Windows endpoint connected to the isolated VMware internal network.
 
-The resulting packet capture provides a reference point for future comparisons against malicious or abnormal network activity.
+The resulting packet capture serves as the reference baseline for identifying abnormal behavior during future reconnaissance and attack simulations.
 
 ---
 
 # Protocol Analysis
 
-The captured traffic primarily consisted of the following protocols.
-
 | Protocol | Purpose | Observation |
 |----------|----------|-------------|
-| TCP | Reliable communication | Primary protocol used throughout the capture |
-| UDP | Service discovery and lightweight communication | Observed during normal Windows operations |
-| ICMP | Connectivity testing | Generated during validation testing |
+| TCP | Reliable communication | Primary transport protocol |
+| TLS | Secure web communication | HTTPS traffic during browsing |
+| ICMP | Connectivity testing | Successful communication between lab systems |
 | ARP | Address Resolution | Normal local network communication |
-| mDNS | Multicast Name Resolution | Windows service discovery traffic |
-| IPv4 | Network communication | Dominant network protocol within the lab |
+| mDNS | Multicast Name Resolution | Windows background service discovery |
+| IPv4 | Network communication | Primary network protocol |
 
-No abnormal or unexpected protocols were identified during the baseline capture.
+No abnormal protocols or unexpected traffic patterns were identified during the baseline capture.
 
 ---
 
 # Port Analysis
 
-Several commonly used ports were observed throughout the capture.
-
 | Port | Service | Purpose |
 |------|----------|----------|
-| 1514 | Wazuh Agent | Log forwarding to Wazuh Server |
-| 137 | NetBIOS | Windows name resolution |
-| 5353 | mDNS | Multicast DNS |
-| Dynamic High Ports | Windows Client Communication | Temporary outbound connections |
+| 443 | HTTPS | Secure web communication |
+| 1514 | Wazuh Agent | Log forwarding |
+| 5353 | mDNS | Multicast service discovery |
+| Dynamic Ports | Windows Client | Temporary outbound communication |
 
-The observed ports aligned with expected Windows and Wazuh communication.
+Observed ports matched expected Windows and Wazuh communication.
 
 ---
 
 # Endpoint Analysis
 
-Endpoint analysis identified the primary systems participating in network communication.
+The following systems participated in normal network communication:
 
 | Endpoint | Role |
 |----------|------|
 | Wazuh Server | Centralized monitoring platform |
-| Windows Endpoint | Monitored system |
+| Windows Endpoint | Monitored host |
 | Kali Linux | Security testing workstation |
-| VMware Virtual Network | Internal communication infrastructure |
+| VMware VMnet2 | Internal isolated network |
 
-The observed endpoints matched the designed network topology.
+The observed endpoints matched the planned SOC lab architecture.
 
 ---
 
@@ -96,45 +90,89 @@ The observed endpoints matched the designed network topology.
 
 Wireshark conversation statistics confirmed continuous communication between the monitored endpoint and the Wazuh Server.
 
-Primary communication included:
+Observed communication included:
 
 - Windows Endpoint ↔ Wazuh Server
+- HTTPS web traffic
 - Windows background services
-- Network discovery traffic
+- mDNS service discovery
 - Wazuh Agent log forwarding
 
-These conversations established the expected communication profile for the environment.
+These conversations established the expected communication profile of the environment.
 
 ---
 
 # Baseline Summary
 
-The baseline analysis identified several characteristics of normal network behavior:
+The baseline analysis identified the following characteristics:
 
-- Stable communication between all virtual machines.
-- Continuous log forwarding from the Windows endpoint to the Wazuh Server.
-- Expected Windows background network activity.
-- Normal protocol distribution.
+- Stable communication between virtual machines.
+- Continuous Wazuh Agent connectivity.
+- Normal HTTPS browsing activity.
+- Expected Windows background traffic.
 - No suspicious communication patterns.
 - No unexpected endpoints.
-- No abnormal ports.
+- No abnormal protocol usage.
 
-This baseline serves as the reference point for all future attack simulations performed within the SOC lab.
+This baseline serves as the reference point for all future attack simulations within the SOC lab.
 
 ---
 
 # Validation
 
-The baseline was validated through:
+Baseline validation included:
 
 - Successful packet capture.
 - Protocol Hierarchy analysis.
-- Endpoint analysis.
-- Conversation analysis.
-- Port analysis.
+- TCP conversation analysis.
+- Endpoint verification.
 - Continuous Wazuh monitoring.
 
 These validation steps confirmed that the captured traffic accurately represents normal operating conditions.
+
+---
+
+# Screenshots
+
+## 1. Wireshark Packet Capture
+
+![Wireshark Capture](../../screenshots/03-Network-Baseline/01-Wireshark-Capture.png)
+
+---
+
+## 2. ICMP Baseline Traffic
+
+![ICMP Baseline](../../screenshots/03-Network-Baseline/02-ICMP-Baseline.png)
+
+---
+
+## 3. HTTPS / TLS Traffic
+
+![TLS Traffic](../../screenshots/03-Network-Baseline/03-Web-Traffic-TLS.png)
+
+---
+
+## 4. Multicast DNS (mDNS)
+
+![mDNS Traffic](../../screenshots/03-Network-Baseline/04-mDNS-Traffic.png)
+
+---
+
+## 5. TCP Three-Way Handshake
+
+![TCP Handshake](../../screenshots/03-Network-Baseline/05-TCP-Handshake.png)
+
+---
+
+## 6. Protocol Hierarchy
+
+![Protocol Hierarchy](../../screenshots/03-Network-Baseline/06-Protocol-Hierarchy.png)
+
+---
+
+## 7. Network Conversations
+
+![Network Conversations](../../screenshots/03-Network-Baseline/07-Network-Conversations.png)
 
 ---
 
@@ -145,25 +183,24 @@ The following deliverables were successfully completed:
 - Baseline packet capture (.pcapng)
 - Protocol analysis
 - Endpoint analysis
-- Conversation analysis
-- Port analysis
-- Baseline documentation
+- TCP conversation analysis
+- Network baseline documentation
 - Supporting screenshots
 
 ---
 
 # Outcome
 
-At the conclusion of Phase 3, a comprehensive network baseline was established for the BlueSentinel SOC Lab.
+At the conclusion of Phase 3, a comprehensive network baseline was successfully established for the BlueSentinel SOC Lab.
 
-This baseline provides a trusted reference against which future attack traffic, suspicious behavior, and security events can be compared. It also enables more accurate detection engineering, threat hunting, and incident investigation throughout the remaining phases of the project.
+The collected packet capture accurately represents normal operating conditions and provides a trusted reference for detecting anomalous activity during future reconnaissance, attack simulations, threat hunting, and incident investigations.
 
 ---
 
 # Key Insights
 
-- Understanding normal network behavior is essential before detecting malicious activity.
-- Baselines significantly reduce false positives during security monitoring.
-- Network traffic analysis provides valuable context during incident investigations.
-- Combining endpoint telemetry with packet analysis improves overall detection capability.
-- Establishing a baseline creates a measurable reference for evaluating future attack scenarios.
+- Understanding normal network behavior is essential before introducing attack scenarios.
+- Network baselines significantly reduce false positives during security monitoring.
+- Packet analysis provides valuable context during incident investigations.
+- Combining endpoint telemetry with network traffic improves overall detection capability.
+- A well-documented baseline strengthens future detection engineering and threat hunting activities.
