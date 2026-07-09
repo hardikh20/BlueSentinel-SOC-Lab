@@ -170,7 +170,6 @@ The following deliverables were completed during this phase:
 - Service detection
 - Operating system fingerprinting
 - Asset documentation
-- Supporting screenshots
 
 ---
 
