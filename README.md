@@ -1,182 +1,221 @@
-# 🛡️ BlueSentinel SOC Lab – Enterprise Detection & Threat Monitoring Environment
+# BlueSentinel SOC Lab
+### Enterprise Detection & Threat Monitoring Environment
+
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-blue)
+![SIEM](https://img.shields.io/badge/SIEM-Wazuh-success)
+![Monitoring](https://img.shields.io/badge/Monitoring-Sysmon-orange)
+![Analysis](https://img.shields.io/badge/Analysis-Wireshark-yellow)
+![Security](https://img.shields.io/badge/Security-Blue%20Team-red)
+
+---
 
 ## Overview
 
-BlueSentinel SOC Lab is a self-hosted Security Operations Center (SOC) environment built to simulate enterprise security monitoring, endpoint visibility, and threat detection workflows.
+BlueSentinel SOC Lab is an enterprise-style Security Operations Center (SOC) project developed to simulate a real-world blue team environment for security monitoring, network traffic analysis, threat investigation, and incident documentation.
 
-The project focuses on building a complete SOC infrastructure from the ground up using industry-standard security tools. The lab is designed to replicate real-world blue team operations, enabling security analysts to monitor endpoints, collect telemetry, establish network baselines, investigate security events, and detect malicious activity in a controlled environment.
-
-The project follows a phased implementation approach where each stage builds upon the previous one, gradually transforming a basic virtual environment into a fully operational SOC capable of detecting and investigating cyber threats.
+The project demonstrates the complete SOC analyst workflow by integrating endpoint monitoring, centralized log collection, network packet analysis, and security event investigation within a virtual enterprise environment. The lab leverages **Wazuh SIEM**, **Sysmon**, **Wireshark**, **Kali Linux**, **Windows 10**, and **VMware Workstation** to simulate reconnaissance activities and analyze security telemetry from both network and endpoint perspectives.
 
 ---
 
-## Project Objectives
+# Project Objectives
 
-- Build an enterprise-style SOC laboratory using virtual machines.
-- Centralize Windows security logs using Wazuh.
-- Monitor endpoint activity with Sysmon.
-- Establish a normal network traffic baseline before introducing attacks.
-- Simulate real-world attack scenarios for detection engineering.
-- Develop hands-on experience with SOC operations, incident analysis, and threat monitoring.
-- Document each implementation phase professionally.
-- Showcase practical blue team skills through a production-style GitHub project.
-
----
-
-## Current Project Status
-
-| Phase | Status |
-|-------|--------|
-| Phase 1 – SOC Lab Deployment | ✅ Completed |
-| Phase 2 – Monitoring Configuration | ✅ Completed |
-| Phase 3 – Network Baseline | ✅ Completed |
-| Phase 4 – Attack Simulation | ⏳ Planned |
-| Phase 5 – Detection Engineering | ⏳ Planned |
-| Phase 6 – Threat Hunting | ⏳ Planned |
-| Phase 7 – Incident Investigation | ⏳ Planned |
-| Phase 8 – SOC Reporting & Automation | ⏳ Planned |
+- Design and deploy a virtual Security Operations Center (SOC) environment.
+- Implement centralized security monitoring using Wazuh SIEM.
+- Configure endpoint telemetry collection using Sysmon.
+- Establish a baseline of normal network activity.
+- Perform asset discovery and service enumeration.
+- Simulate reconnaissance attacks using Nmap.
+- Analyze network traffic using Wireshark.
+- Investigate security events through Wazuh Threat Hunting.
+- Produce professional SOC investigation documentation.
 
 ---
 
-## Lab Architecture
+# Technology Stack
 
-The SOC lab consists of three primary virtual machines connected through an isolated VMware virtual network.
-
-| Component | Purpose |
-|----------|----------|
-| Windows 10 | Endpoint monitored by Wazuh and Sysmon |
-| Kali Linux | Attack simulation and security testing workstation |
-| Wazuh Server | Centralized log collection, detection, and monitoring platform |
-
-The environment is intentionally isolated from production systems, allowing attacks and defensive monitoring to be performed safely.
-
----
-
-## Technology Stack
-
-### Virtualization
-
-- VMware Workstation Pro
-
-### Operating Systems
-
-- Windows 10
-- Kali Linux
-- Ubuntu Server (Wazuh Server)
-
-### Security Tools
-
-- Wazuh
-- Sysmon
-- Wireshark
-
-### Networking
-
-- Internal Virtual Network
-- Static IP Addressing
-- ICMP
-- TCP
-- UDP
-- DNS
-- mDNS
-
-### Documentation
-
-- Visual Studio Code
-- Markdown
-- Git
-- GitHub
+| Category | Technology |
+|-----------|------------|
+| Hypervisor | VMware Workstation |
+| Operating Systems | Ubuntu Server, Windows 10, Kali Linux |
+| SIEM Platform | Wazuh |
+| Endpoint Monitoring | Sysmon |
+| Network Analysis | Wireshark |
+| Reconnaissance | Nmap |
+| Documentation | GitHub Markdown |
+| Version Control | Git |
 
 ---
 
-## Repository Structure
+# Lab Architecture
 
-```text
-BlueSentinel-SOC-Lab/
-│
-├── docs/
-│   ├── 01-SOC-Lab-Setup/
-│   ├── 02-Monitoring-Configuration/
-│   ├── 03-Network-Baseline/
-│   ├── IP-Address-Inventory.md
-│   ├── Network-Topology.md
-│   └── Project-Architecture.md
-│
-├── screenshots/
-├── reports/
-├── network-captures/
-├── diagrams/
-├── configs/
-├── resources/
-│
-├── README.md
-├── LICENSE
-└── .gitignore
+```
+                        +----------------------+
+                        |     Kali Linux       |
+                        |    (Attacker VM)     |
+                        +----------+-----------+
+                                   |
+                                   |
+                         Reconnaissance Traffic
+                                   |
+                                   ▼
++--------------------------------------------------------------+
+|                     Internal Virtual Network                 |
++--------------------------------------------------------------+
+            |                                   |
+            ▼                                   ▼
++----------------------+          +---------------------------+
+|   Windows 10 VM      |          |      Wazuh Server         |
+|                      |          |                           |
+| • Sysmon             |--------->| Wazuh Manager            |
+| • Wazuh Agent        |          | Wazuh Dashboard          |
+|                      |          | Wazuh Indexer            |
++----------------------+          +---------------------------+
+
 ```
 
 ---
 
-## Skills Demonstrated
+# Project Workflow
 
-This project demonstrates practical experience with:
+```
+SOC Lab Deployment
+        │
+        ▼
+Monitoring Configuration
+        │
+        ▼
+Network Baseline Analysis
+        │
+        ▼
+Asset Discovery
+        │
+        ▼
+Reconnaissance Simulation
+        │
+        ▼
+Packet Investigation
+        │
+        ▼
+Alert Triage & Investigation
+        │
+        ▼
+Incident Documentation
+```
 
-- Security Operations Center (SOC) fundamentals
+---
+
+# Project Implementation
+
+## Phase 1 — SOC Lab Deployment
+
+Designed and deployed the virtual enterprise SOC environment by configuring VMware Workstation, Kali Linux, Windows 10, Ubuntu Server, and Wazuh SIEM.
+
+---
+
+## Phase 2 — Monitoring Configuration
+
+Configured endpoint monitoring through Sysmon and integrated the Windows endpoint with Wazuh Agent to enable centralized log collection and security event monitoring.
+
+---
+
+## Phase 3 — Network Baseline
+
+Established a baseline of legitimate network activity by capturing and analyzing normal communication patterns using Wireshark.
+
+---
+
+## Phase 4 — Asset Inventory
+
+Performed network discovery using Nmap to identify live hosts, enumerate services, and document network assets within the SOC environment.
+
+---
+
+## Phase 5 — Reconnaissance Simulation
+
+Simulated attacker reconnaissance by executing multiple Nmap scanning techniques to generate realistic network activity for subsequent investigation.
+
+---
+
+## Phase 6 — Packet Investigation
+
+Performed detailed packet-level analysis using Wireshark to investigate TCP handshakes, SYN packets, connection attempts, protocol behavior, and network communication patterns.
+
+---
+
+## Phase 7 — Alert Triage & Investigation
+
+Conducted security event analysis within Wazuh by reviewing alert metadata, endpoint telemetry, raw event logs, rule information, and investigation timelines to understand the alert investigation workflow.
+
+---
+
+## Phase 8 — Incident Documentation
+
+Compiled the complete investigation into a professional SOC incident report documenting the investigation methodology, evidence, findings, analysis, and security recommendations.
+
+---
+
+# Skills Demonstrated
+
+- Security Operations Center (SOC)
+- Security Information and Event Management (SIEM)
+- Endpoint Security Monitoring
 - Windows Event Logging
-- Endpoint Monitoring
-- Sysmon Configuration
-- Wazuh Deployment & Administration
 - Network Traffic Analysis
-- Wireshark Packet Analysis
-- Network Baseline Development
-- Virtual Lab Deployment
-- Security Documentation
-- Git & GitHub Version Control
-
----
-
-## Project Roadmap
-
-### Version 1.0
-- ✅ Phase 1 – Build the SOC Lab
-- ✅ Phase 2 – Configure Monitoring
-- ✅ Phase 3 – Establish Network Baseline
-
-### Version 2.0
-- Attack Simulation
-- Initial Detection Validation
-
-### Version 3.0
-- Detection Engineering
-- Custom Wazuh Rules
-
-### Version 4.0
-- Threat Hunting
-- IOC Analysis
-
-### Version 5.0
+- Packet Inspection
+- Network Reconnaissance Analysis
+- Asset Discovery
+- Alert Triage
 - Incident Investigation
-- SOC Reporting
-- Detection Improvements
+- Security Event Correlation
+- Network Baseline Analysis
+- Technical Documentation
 
 ---
 
-## Author
+# Repository Structure
+
+```
+BlueSentinel-SOC-Lab
+│
+├── docs
+│   ├── 01-SOC-Lab-Setup
+│   ├── 02-Monitoring-Configuration
+│   ├── 03-Network-Baseline
+│   ├── 04-Asset-Inventory
+│   ├── 05-Reconnaissance
+│   ├── 06-Packet-Investigation
+│   ├── 07-Alert-Triage
+│   └── 08-Incident-Report
+│
+├── screenshots
+│
+├── reports
+│
+├── resources
+│
+└── README.md
+```
+
+---
+
+# Learning Outcomes
+
+This project provided practical experience in designing and operating a Security Operations Center (SOC) environment while developing skills in endpoint monitoring, security event analysis, network traffic investigation, asset discovery, packet analysis, alert triage, and professional incident documentation aligned with blue team methodologies.
+
+---
+
+# Future Enhancements
+
+- Implement advanced custom detection rules.
+- Integrate additional log sources.
+- Simulate advanced adversary techniques mapped to the MITRE ATT&CK framework.
+- Expand threat detection and incident response scenarios.
+- Automate monitoring and reporting workflows.
+
+---
+
+# Author
 
 **Hardik Harchilkar**
 
-Cybersecurity Student | Blue Team | SOC Analyst
-
-LinkedIn:
-https://www.linkedin.com/in/hardik-harchilkar-474433377
-
----
-
-## License
-
-This project is released under the MIT License.
-
----
-
-> **Project Status:** Active Development 🚀
-
-This repository is continuously updated as additional phases of the BlueSentinel SOC Lab are completed.
+**Blue Team | SOC Analyst | Threat Detection | Security Monitoring**
