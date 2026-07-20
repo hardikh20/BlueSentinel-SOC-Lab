@@ -62,7 +62,7 @@ The selected security event provides endpoint identification, agent information,
 The alert metadata includes the triggered Wazuh rule, severity level, compliance mappings, and rule information used during the investigation.
 
 <p align="center">
-<img src="../../screenshots/07-Alert-Triage/04-Alert-&-Rule-Details.png" width="700">
+<img src="../../screenshots/07-Alert-Triage/04-Alert-Rule-Details.png" width="700">
 </p>
 
 ---
